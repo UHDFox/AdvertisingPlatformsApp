@@ -47,7 +47,7 @@ public sealed class AdvertisingController : Controller
             return BadRequest("The region is missing or empty");
         }
 
-        var result = _service.SearchAdCompaniesByARegion(region);
+        var result = _service.SearchAdCompaniesByRegion(region);
 
         return Ok(result);
     }

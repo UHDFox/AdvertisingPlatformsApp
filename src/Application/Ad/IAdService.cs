@@ -4,5 +4,5 @@ public interface IAdService
 {
     public Task ReadAdsDataFromFileAsync(Stream stream, CancellationToken cancellationToken);
 
-    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByARegion(string region);
+    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByRegion(string region);
 }

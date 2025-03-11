@@ -46,7 +46,7 @@ public sealed class AdService : IAdService
         }
     }
 
-    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByARegion(string region)
+    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByRegion(string region)
     {
         if (_adCompanyRepository.Get().Count == 0)
         {
