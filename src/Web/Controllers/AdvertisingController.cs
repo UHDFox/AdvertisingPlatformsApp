@@ -1,4 +1,3 @@
-using System.Text;
 using Application.Ad;
 using Microsoft.AspNetCore.Mvc;
 
