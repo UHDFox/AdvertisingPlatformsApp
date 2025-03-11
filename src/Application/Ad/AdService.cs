@@ -61,18 +61,4 @@ public sealed class AdService : IAdService
        return adCompanies[region].Select(x => 
            new AdCompanyModel(x.CompanyName, x.Regions)).ToList();
     }
-
-    private IReadOnlyList<string> GetRegionPrefixes(string region)
-    {
-        var prefixes = new List<string>();
-
-        var parts = region.Split('/', StringSplitOptions.RemoveEmptyEntries);
-
-        for (int i = 1; i <= parts.Length; i++)
-        {
-            prefixes.Add("/" + string.Join('/', parts.Take(i)));
-        }
-
-        return prefixes;
-    }
 }
