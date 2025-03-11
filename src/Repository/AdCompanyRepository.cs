@@ -21,7 +21,7 @@ public sealed class AdCompanyRepository : IAdCompanyRepository
         }
     }
 
-    public Dictionary<string, List<AdCompanyEntity>> Get()
+    public IReadOnlyDictionary<string, List<AdCompanyEntity>> Get()
     {
         return _regions;
     }
