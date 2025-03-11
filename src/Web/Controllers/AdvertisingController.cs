@@ -23,7 +23,7 @@ public sealed class AdvertisingController : Controller
             return BadRequest("The file is missing or empty");
         }
 
-        using (var stream = file.OpenReadStream())
+        await using (var stream = file.OpenReadStream())
         {
             try
             {
@@ -40,7 +40,7 @@ public sealed class AdvertisingController : Controller
     }
 
     [HttpGet("search")]
-    public async Task<IActionResult> GetAdCompaniesByRegion(string region)
+    public IActionResult GetAdCompaniesByRegion(string region)
     {
         if (string.IsNullOrWhiteSpace(region))
         {
