@@ -54,13 +54,10 @@ public sealed class AdService : IAdService
                 "\"Ad companies data is missing. Please, load data before requesting any information.\"");
         }
 
-        var regionPrefixes = GetRegionPrefixes(region);
-
-        return _adCompanyRepository.Get()
-            .Where(ad => ad.Value.Regions
-                .Any(r => regionPrefixes.Contains(r) || regionPrefixes.Any(prefix => r.EndsWith(prefix))))
-            .Select(ad => new AdCompanyModel(ad.Key, ad.Value.Regions))
-            .ToList();
+       var adCompanies = _adCompanyRepository.Get();
+       
+       return adCompanies[region].Select(x => 
+           new AdCompanyModel(x.CompanyName, x.Regions)).ToList();
     }
 
     private IReadOnlyList<string> GetRegionPrefixes(string region)
