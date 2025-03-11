@@ -5,21 +5,29 @@ namespace Repository;
 
 public sealed class AdCompanyRepository : IAdCompanyRepository
 {
-    private static readonly Dictionary<string, AdCompanyEntity> _adCompanies 
-        = new Dictionary<string, AdCompanyEntity>();
+    private static readonly Dictionary<string, List<AdCompanyEntity>> _regions 
+        = new Dictionary<string, List<AdCompanyEntity>>(StringComparer.OrdinalIgnoreCase);
 
     public void Add(string companyName, List<string> regions)
     {
-        _adCompanies[companyName] = new AdCompanyEntity(companyName, regions);
+        foreach (var region in regions)
+        {
+            if (!_regions.ContainsKey(region))
+            {
+                _regions[region] = new List<AdCompanyEntity>();
+            }
+
+            _regions[region].Add(new AdCompanyEntity(companyName, regions));
+        }
     }
 
-    public Dictionary<string, AdCompanyEntity> Get()
+    public Dictionary<string, List<AdCompanyEntity>> Get()
     {
-        return _adCompanies;
+        return _regions;
     }
 
     public void PurgeData()
     {
-        _adCompanies.Clear();
+        _regions.Clear();
     }
 }
