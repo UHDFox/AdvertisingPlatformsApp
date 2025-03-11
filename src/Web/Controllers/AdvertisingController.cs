@@ -51,29 +51,4 @@ public sealed class AdvertisingController : Controller
 
         return Ok(result);
     }
-
-
-    private async Task<Dictionary<string, List<string>>> ParseFileAsync(IFormFile file)
-    {
-        Dictionary<string, List<string>> ads = new();
-
-        using (var stream = new StreamReader(file.OpenReadStream(), Encoding.UTF8))
-        {
-            while (!stream.EndOfStream)
-            {
-                var line = await stream.ReadLineAsync();
-                if (string.IsNullOrWhiteSpace(line)) continue;
-
-                var parts = line.Split(':');
-                if (parts.Length != 2) continue;
-
-                string companyName = parts[0].Trim();
-                List<string> regions = parts[1].Split(',').Select(r => r.Trim()).ToList();
-
-                ads[companyName] = regions;
-            }
-        }
-
-        return ads;
-    }
 }
