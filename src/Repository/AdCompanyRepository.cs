@@ -22,32 +22,4 @@ public sealed class AdCompanyRepository : IAdCompanyRepository
     {
         _adCompanies.Clear();
     }
-
-    private async Task<Dictionary<string, List<string>>> ParseRegionsFromALocalFileAsync(string filePath)
-    {
-        var regions = new Dictionary<string, List<string>>();
-
-        if (!File.Exists(filePath))
-        {
-            Console.WriteLine("File not found: " + filePath);
-            return regions;
-        }
-
-        using var reader = new StreamReader(filePath, Encoding.UTF8);
-        while (!reader.EndOfStream)
-        {
-            var line = await reader.ReadLineAsync();
-            if (string.IsNullOrWhiteSpace(line)) continue;
-
-            var lineData = line.Split(':');
-            if (lineData.Length != 2) continue;
-
-            var advertisingCompany = lineData[0].Trim();
-            var lineRegions = lineData[1].Trim().Split(',').Select(r => r.Trim()).ToList();
-
-            regions[advertisingCompany] = lineRegions;
-        }
-
-        return regions;
-    }
 }

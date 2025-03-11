@@ -28,10 +28,10 @@ public sealed class AdService : IAdService
 
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                var parts = line.Split(':');
+                var parts = line.Split(':', StringSplitOptions.TrimEntries);
                 if (parts.Length != 2) continue;
 
-                var companyName = parts[0].Trim();
+                var companyName = parts[0];
                 if (companyName.Length == 0)
                 {
                     stream.Close();
@@ -39,14 +39,16 @@ public sealed class AdService : IAdService
                         $"Company name is empty on line {lineNumber}. Please provide a valid company name.");
                 }
 
-                var regions = parts[1].Split(',').Select(r => r.Trim()).ToList();
+                var regionsParsed = parts[1];
+
+                var regions = regionsParsed.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 _adCompanyRepository.Add(companyName, regions);
             }
         }
     }
 
-    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByARegion(string region)
+    public IReadOnlyList<AdCompanyModel> SearchAdCompaniesByRegion(string region)
     {
         if (_adCompanyRepository.Get().Count == 0)
         {
