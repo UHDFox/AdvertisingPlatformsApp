@@ -58,7 +58,11 @@ public sealed class AdService : IAdService
 
        var adCompanies = _adCompanyRepository.Get();
        
-       return adCompanies[region].Select(x => 
-           new AdCompanyModel(x.CompanyName, x.Regions)).ToList();
+       if (adCompanies.TryGetValue(region, out var companies))
+       {
+           return companies.Select(x => new AdCompanyModel(x.CompanyName, x.Regions)).ToList();
+       }
+       
+       return new List<AdCompanyModel>();
     }
 }
