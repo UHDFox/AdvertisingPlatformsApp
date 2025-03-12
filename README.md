@@ -102,7 +102,7 @@ dotnet build
 #### 4. Запуск проекта и доступ
 Проект запускается при помощи команды
 ```
-dotnet run
+dotnet run --project './src/Web/Web.csproj'
 ```
 
 он будет доступен по адресу
